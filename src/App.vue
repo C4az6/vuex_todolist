@@ -20,7 +20,7 @@
         <!-- 复选框 -->
         <a-checkbox>{{item.info}}</a-checkbox>
         <!-- 删除链接 -->
-        <a slot="actions">删除</a>
+        <a slot="actions" @click="removeItemToList(item.id)">删除</a>
       </a-list-item>
 
       <!-- footer区域 -->
@@ -61,12 +61,16 @@ export default {
     handleInputChange (e) {
       this.$store.commit('setInput', e.target.value)
     },
-    // 向列表中新增item项
+    // 新增任务项
     addItemToList () {
       if (this.inputValue.trim().length <= 0) {
         return this.$message.warning('文本框内容不能为空!')
       }
       this.$store.commit('addItem')
+    },
+    // 根据ID删除任务项
+    removeItemToList (id) {
+      this.$store.commit('removeItem', id)
     }
   }
 }

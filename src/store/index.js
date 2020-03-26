@@ -16,9 +16,11 @@ export default new Vuex.Store({
     initList (state, list) {
       state.list = list
     },
+    // 设置input框值
     setInput (state, value) {
       state.inputValue = value
     },
+    // 增加任务项函数
     addItem (state) {
       const obj = {
         id: state.nextId,
@@ -28,7 +30,16 @@ export default new Vuex.Store({
       state.list.push(obj)
       state.nextId++
       state.inputValue = ''
+    },
+    // 删除任务项函数
+    removeItem (state, index) {
+      // 根据索引删除
+      const i = state.list.findIndex(v => v.id === index)
+      if (i !== -1) {
+        state.list.splice(i, 1)
+      }
     }
+
   },
   actions: {
     getList (context) {
