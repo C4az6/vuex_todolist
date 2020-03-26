@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+// import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -14,7 +14,10 @@ export default new Vuex.Store({
     key: 'all'
   },
   mutations: {
-    initList (state, list) {
+    getList (state) {
+      let list = localStorage.getItem('list')
+      console.log(list)
+      list = JSON.parse(list)
       state.list = list
     },
     // 设置input框值
@@ -58,19 +61,21 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getList (context) {
-      axios.get('/list.json')
-        .then(({
-          data
-        }) => {
-          context.commit('initList', data)
-        })
-    }
+
   },
   getters: {
     // 计算未完成任务条数
     unDoneLength (state) {
       return state.list.filter(v => v.done === false).length
+    },
+    infoList (state) {
+      if (state.key === 'unDone') {
+        return state.list.filter(v => !v.done)
+      } else if (state.key === 'Done') {
+        return state.list.filter(v => v.done)
+      } else {
+        return state.list
+      }
     }
   },
   modules: {}

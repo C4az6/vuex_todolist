@@ -13,7 +13,7 @@
 
     <a-list
       bordered
-      :dataSource="list"
+      :dataSource="infoList"
       class="dt_list"
     >
       <a-list-item
@@ -69,13 +69,21 @@ export default {
     return {}
   },
   created () {
-    this.$store.dispatch('getList')
+    this.$store.commit('getList')
+  },
+  mounted () {
+    window.addEventListener('beforeunload', e => this.set())
   },
   computed: {
-    ...mapState(['list', 'inputValue', 'key']),
-    ...mapGetters(['unDoneLength'])
+    ...mapState(['inputValue', 'key']),
+    ...mapGetters(['unDoneLength', 'infoList'])
   },
   methods: {
+    set () {
+      // 关闭浏览器的时候覆盖一下localStorage里面的list数组
+      const infoList = JSON.stringify(this.infoList)
+      localStorage.setItem('list', infoList)
+    },
     // 监听文本框内容变化
     handleInputChange (e) {
       this.$store.commit('setInput', e.target.value)
