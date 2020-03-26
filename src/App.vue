@@ -18,7 +18,7 @@
         slot-scope="item"
       >
         <!-- 复选框 -->
-        <a-checkbox>{{item.info}}</a-checkbox>
+        <a-checkbox :checked="item.done">{{item.info}}</a-checkbox>
         <!-- 删除链接 -->
         <a slot="actions" @click="removeItemToList(item.id)">删除</a>
       </a-list-item>
