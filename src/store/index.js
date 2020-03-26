@@ -46,6 +46,10 @@ export default new Vuex.Store({
           item.done = !item.done
         }
       })
+    },
+    // 清除已完成的任务
+    cleanDone (state) {
+      state.list = state.list.filter(v => v.done === false)
     }
 
   },
