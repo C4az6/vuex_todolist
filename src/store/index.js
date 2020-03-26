@@ -38,6 +38,13 @@ export default new Vuex.Store({
       if (i !== -1) {
         state.list.splice(i, 1)
       }
+    },
+    // 修改任务项选中状态函数
+    changeStatus (state, params) {
+      const i = state.list.findIndex(v => v.id === params.id)
+      if (i !== -1) {
+        state.list[i].done = params.done
+      }
     }
 
   },

@@ -18,7 +18,7 @@
         slot-scope="item"
       >
         <!-- 复选框 -->
-        <a-checkbox :checked="item.done">{{item.info}}</a-checkbox>
+        <a-checkbox :checked="item.done" @change="(e)=>{handleChange(e, item.id)}">{{item.info}}</a-checkbox>
         <!-- 删除链接 -->
         <a slot="actions" @click="removeItemToList(item.id)">删除</a>
       </a-list-item>
@@ -71,6 +71,15 @@ export default {
     // 根据ID删除任务项
     removeItemToList (id) {
       this.$store.commit('removeItem', id)
+    },
+    // 根据ID修改任务项的状态值
+    handleChange (e, id) {
+      console.log(e.target.checked, id)
+      const params = {
+        done: e.target.checked,
+        id: id
+      }
+      this.$store.commit('changeStatus', params)
     }
   }
 }
