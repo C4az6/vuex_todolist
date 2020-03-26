@@ -10,7 +10,8 @@ export default new Vuex.Store({
     list: [],
     inputValue: '',
     // 下一次生成的ID
-    nextId: 5
+    nextId: 5,
+    key: 'all'
   },
   mutations: {
     initList (state, list) {
@@ -50,8 +51,11 @@ export default new Vuex.Store({
     // 清除已完成的任务
     cleanDone (state) {
       state.list = state.list.filter(v => v.done === false)
+    },
+    // 设置切换button按钮的key值
+    setKey (state, key) {
+      state.key = key
     }
-
   },
   actions: {
     getList (context) {
