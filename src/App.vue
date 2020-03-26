@@ -29,7 +29,7 @@
         class="footer"
       >
         <!-- 未完成的任务个数 -->
-        <span>0条剩余</span>
+        <span>{{unDoneLength}}条剩余</span>
         <!-- 操作按钮 -->
         <a-button-group>
           <a-button type="primary">全部</a-button>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'app',
   data () {
@@ -54,7 +54,8 @@ export default {
     this.$store.dispatch('getList')
   },
   computed: {
-    ...mapState(['list', 'inputValue'])
+    ...mapState(['list', 'inputValue']),
+    ...mapGetters(['unDoneLength'])
   },
   methods: {
     // 监听文本框内容变化
@@ -74,7 +75,6 @@ export default {
     },
     // 根据ID修改任务项的状态值
     handleChange (e, id) {
-      console.log(e.target.checked, id)
       const params = {
         done: e.target.checked,
         id: id

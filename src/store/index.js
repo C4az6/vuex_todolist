@@ -59,5 +59,11 @@ export default new Vuex.Store({
         })
     }
   },
+  getters: {
+    // 计算未完成任务条数
+    unDoneLength (state) {
+      return state.list.filter(v => v.done === false).length
+    }
+  },
   modules: {}
 })
