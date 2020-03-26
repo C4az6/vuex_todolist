@@ -3,6 +3,8 @@
     <a-input
       placeholder="请输入任务"
       class="my_ipt"
+      :value="inputValue"
+      @change="handleInputChange"
     />
     <a-button type="primary">添加事项</a-button>
 
@@ -52,7 +54,12 @@ export default {
     this.$store.dispatch('getList')
   },
   computed: {
-    ...mapState(['list'])
+    ...mapState(['list', 'inputValue'])
+  },
+  methods: {
+    handleInputChange (e) {
+      this.$store.commit('setInput', e.target.value)
+    }
   }
 }
 

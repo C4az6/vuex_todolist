@@ -7,11 +7,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     // 所有的任务列表
-    list: []
+    list: [],
+    inputValue: ''
   },
   mutations: {
     initList (state, list) {
       state.list = list
+    },
+    setInput (state, value) {
+      state.inputValue = value
     }
   },
   actions: {
