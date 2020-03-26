@@ -10,13 +10,12 @@ export default new Vuex.Store({
     list: [],
     inputValue: '',
     // 下一次生成的ID
-    nextId: 5,
+    nextId: Math.random(),
     key: 'all'
   },
   mutations: {
     getList (state) {
       let list = localStorage.getItem('list')
-      console.log(list)
       list = JSON.parse(list)
       state.list = list
     },
