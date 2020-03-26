@@ -8,7 +8,9 @@ export default new Vuex.Store({
   state: {
     // 所有的任务列表
     list: [],
-    inputValue: ''
+    inputValue: '',
+    // 下一次生成的ID
+    nextId: 5
   },
   mutations: {
     initList (state, list) {
@@ -16,6 +18,16 @@ export default new Vuex.Store({
     },
     setInput (state, value) {
       state.inputValue = value
+    },
+    addItem (state) {
+      const obj = {
+        id: state.nextId,
+        info: state.inputValue,
+        done: false
+      }
+      state.list.push(obj)
+      state.nextId++
+      state.inputValue = ''
     }
   },
   actions: {

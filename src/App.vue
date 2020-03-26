@@ -6,7 +6,7 @@
       :value="inputValue"
       @change="handleInputChange"
     />
-    <a-button type="primary">添加事项</a-button>
+    <a-button type="primary" @click="addItemToList">添加事项</a-button>
 
     <a-list
       bordered
@@ -57,8 +57,16 @@ export default {
     ...mapState(['list', 'inputValue'])
   },
   methods: {
+    // 监听文本框内容变化
     handleInputChange (e) {
       this.$store.commit('setInput', e.target.value)
+    },
+    // 向列表中新增item项
+    addItemToList () {
+      if (this.inputValue.trim().length <= 0) {
+        return this.$message.warning('文本框内容不能为空!')
+      }
+      this.$store.commit('addItem')
     }
   }
 }
