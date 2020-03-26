@@ -41,17 +41,20 @@ export default new Vuex.Store({
     },
     // 修改任务项选中状态函数
     changeStatus (state, params) {
-      const i = state.list.findIndex(v => v.id === params.id)
-      if (i !== -1) {
-        state.list[i].done = params.done
-      }
+      state.list.map((item) => {
+        if (item.id === params.id) {
+          item.done = !item.done
+        }
+      })
     }
 
   },
   actions: {
     getList (context) {
       axios.get('/list.json')
-        .then(({ data }) => {
+        .then(({
+          data
+        }) => {
           context.commit('initList', data)
         })
     }
